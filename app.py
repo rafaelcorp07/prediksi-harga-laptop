@@ -5,7 +5,7 @@ import pickle
 import plotly.express as px
 
 # 1. Konfigurasi Halaman Web
-st.set_page_config(page_title="Estimasi Harga Laptop", page_icon="💻", layout="wide")
+st.set_page_config(page_title="Estimasi Harga Laptop", layout="wide")
 
 # 2. Fungsi Load Model & Data Bersih (Menggunakan Cache agar Web Cepat)
 @st.cache_resource
@@ -26,12 +26,12 @@ fitur_kolom = komponen['fitur_kolom']
 df = load_clean_data()
 
 # 3. Antarmuka Utama (Header)
-st.title("💻 Dashboard Analisis & Prediksi Harga Laptop")
+st.title("Dashboard Analisis & Prediksi Harga Laptop")
 st.markdown("Aplikasi ini menggunakan kecerdasan **Random Forest Regressor** untuk memprediksi harga laptop berdasarkan spesifikasi yang Anda pilih.")
 st.write("---")
 
 # 4. Form Input Spesifikasi di Sidebar (Panel Kiri)
-st.sidebar.header("⚙️ Spesifikasi Laptop")
+st.sidebar.header("Spesifikasi Laptop")
 
 company = st.sidebar.selectbox("Merek Laptop", sorted(df['Company'].unique()))
 typename = st.sidebar.selectbox("Jenis/Kategori", sorted(df['TypeName'].unique()))
@@ -52,7 +52,7 @@ res_width = 1920
 res_height = 1080
 
 # 5. Logika Prediksi Saat Tombol Ditekan
-if st.sidebar.button("🤖 Hitung Estimasi Harga"):
+if st.sidebar.button("Hitung Estimasi Harga"):
     # Tampung input ke dalam dictionary
     input_user = {
         'Inches': inches, 'Ram': ram, 'Weight': weight, 'Cpu_Speed_GHz': cpu_speed,
@@ -86,7 +86,7 @@ if st.sidebar.button("🤖 Hitung Estimasi Harga"):
     prediksi_rupiah = prediksi_euro * 17500 # Estimasi kurs Euro ke Rupiah
     
     # Tampilkan Hasil Prediksi Utama
-    st.subheader("🎉 Hasil Estimasi Harga")
+    st.subheader("Hasil Estimasi Harga")
     col1, col2 = st.columns(2)
     with col1:
         st.metric(label="Harga dalam Euro", value=f"€ {prediksi_euro:,.2f}")
@@ -97,7 +97,7 @@ if st.sidebar.button("🤖 Hitung Estimasi Harga"):
 st.write("---")
 
 # 6. Fitur Tambahan: Visualisasi Singkat di Layar Utama
-st.subheader("📊 Analisis Singkat Pasar Laptop")
+st.subheader("Analisis Singkat Pasar Laptop")
 pilihan_grafik = st.selectbox("Pilih Grafik Visualisasi:", ["Distribusi Harga per Merek", "Kapasitas RAM vs Harga"])
 
 if pilihan_grafik == "Distribusi Harga per Merek":
